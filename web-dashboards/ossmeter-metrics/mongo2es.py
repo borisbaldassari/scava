@@ -30,7 +30,7 @@ import logging
 
 from pymongo import MongoClient
 
-from grimoire_elk.elk.elastic import ElasticSearch
+from grimoire_elk.elastic import ElasticSearch
 
 
 def get_params():
@@ -265,7 +265,7 @@ def enrich_ossmeter_item(item, item_meta):
 
 
 def fetch_mongodb_collection(collection_str, host=None, port=None, client=None):
-    """ conn could be a already created connection to Mongo """
+    """ client could be a already created connection to Mongo """
     if not client:
         client = connect_to_mongo(host, port)
 
@@ -327,4 +327,4 @@ if __name__ == '__main__':
 
     if mongo_items:
         logging.info("Loading collections in Elasticsearch")
-        elastic.bulk_upload_sync(mongo_items, "id")
+        elastic.bulk_upload(mongo_items, "id")
